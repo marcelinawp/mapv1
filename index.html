@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Contractor Map with Region Metrics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 100vh;
+    }
+    .legend {
+      background: white;
+      line-height: 1.5em;
+      padding: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      font-size: 14px;
+      border-radius: 5px;
+    }
+    .legend i {
+      width: 18px;
+      height: 18px;
+      float: left;
+      margin-right: 8px;
+      opacity: 0.7;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map').setView([-6.2, 106.8], 6);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  const regionColors = {
+    'Jabo 1': '#e6194b',
+    'Jabo 2': '#3cb44b',
+    'Jabo 3': '#ffe119',
+    'Jabo 4': '#4363d8',
+    'Jabo 5': '#f58231',
+    'Jabo 6': '#911eb4',
+    'Jabo 7': '#46f0f0',
+    'Jabar 1': '#f032e6',
+    'Jabar 2': '#bcf60c',
+    'Jateng 1': '#fabebe',
+    'Jateng 2': '#008080',
+    'Jatim 1': '#e6beff',
+    'Jatim 2': '#9a6324',
+    'Sumatra 1': '#fffac8'
+  };
+
+  const metricsByRegion = {
+    '<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Contractor Map with Region Metrics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 100vh;
+    }
+    .legend {
+      background: white;
+      line-height: 1.5em;
+      padding: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      font-size: 14px;
+      border-radius: 5px;
+    }
+    .legend i {
+      width: 18px;
+      height: 18px;
+      float: left;
+      margin-right: 8px;
+      opacity: 0.7;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map').setView([-6.2, 106.8], 6);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  const regionColors = {
+    'Jabo 1': '#e6194b',
+    'Jabo 2': '#3cb44b',
+    'Jabo 3': '#ffe119',
+    'Jabo 4': '#4363d8',
+    'Jabo 5': '#f58231',
+    'Jabo 6': '#911eb4',
+    'Jabo 7': '#46f0f0',
+    'Jabar 1': '#f032e6',
+    'Jabar 2': '#bcf60c',
+    'Jateng 1': '#fabebe',
+    'Jateng 2': '#008080',
+    'Jatim 1': '#e6beff',
+    'Jatim 2': '#9a6324',
+    'Sumatra 1': '#fffac8'
+  };
+
+
+
+  const metricsByRegion = {
+    'Jabo 1': { homepass: 498.661, customer: 80.798, percentage: 16.2, workOrder: 13.561 },
+    'Jabo 2': { homepass: 411.784, customer: 70.569, percentage: 17.1, workOrder: 12.426 },
+    'Jabo 3': { homepass: 189.371, customer: 74.619, percentage: 39.4, workOrder: 11.806 },
+    'Jabo 4': { homepass: 159.083, customer: 56.958, percentage: 35.8, workOrder: 9.147 },
+    'Jabo 5': { homepass: 284.287, customer: 53.920, percentage: 19.0, workOrder: 8.791 },
+    'Jabo 6': { homepass: 125.351, customer: 50.343, percentage: 40.2, workOrder: 7.326 },
+    'Jabo 7': { homepass: 275.443, customer: 70.255, percentage: 25.5, workOrder: 12.069 },
+    'Jabar 1': { homepass: 349.452, customer: 55.987, percentage: 16.0, workOrder: 8.732 },
+    'Jabar 2': { homepass: 123.062, customer: 14.444, percentage: 11.7, workOrder: 2.071 },
+    'Jateng 1': { homepass: 288.976, customer: 30.141, percentage: 80.4, workOrder: 3.864 },
+    'Jateng 2': { homepass: 326.193, customer: 49.028, percentage: 15.0, workOrder: 5.869 },
+    'Jatim 1': { homepass: 490.782, customer: 120.145, percentage: 24.5, workOrder: 16.152 },
+    'Jatim 2': { homepass: 290.606, customer: 10.098, percentage: 3.5, workOrder: 4.943 },
+    'Sumatra 1': { homepass: 271.226, customer: 47.467, percentage: 17.5, workOrder: 7.178 }
+  };
+
+  const data = [
+            { id: 'Jabo 7', nama: 'Bintang Bekasi', lat: -6.291897, lon: 106.954584, contractor: 'Bintang' },
+  { id: 'Jabo 7', nama: 'Bintang Karawang', lat: -6.335769, lon: 107.144202, contractor: 'Bintang' },
+  { id: 'Jabo 7', nama: 'DSS Bekasi', lat: -6.2649199, lon: 106.9358421, contractor: 'DSS' },
+  { id: 'Jabo 7', nama: 'ATP Bekasi', lat: -6.261222, lon: 107.059477, contractor: 'ATP' },
+  { id: 'Jabo 6', nama: 'Quantum Bogor', lat: -6.4056634, lon: 106.9034901, contractor: 'Quantum' },
+  { id: 'Jabo 6', nama: 'RPS Bogor', lat: -6.588028, lon: 106.852524, contractor: 'RPS' },
+  { id: 'Jabo 6', nama: 'Bintang Bogor', lat: -6.290786, lon: 106.950225, contractor: 'Bintang' },
+  { id: 'Jabo 6', nama: 'ATP Bogor', lat: -6.43575, lon: 107.051806, contractor: 'ATP' },
+  { id: 'Jabo 6', nama: 'DSS Bogor', lat: -6.37395990414455, lon: 106.807828755418, contractor: 'DSS' },
+  { id: 'Jabo 4', nama: 'Bintang Tangsel', lat: -6.32925, lon: 106.7822, contractor: 'Bintang' },
+  { id: 'Jabo 4', nama: 'RPS Tangsel', lat: -6.23756, lon: 106.616939, contractor: 'RPS' },
+  { id: 'Jabo 4', nama: 'ATP Tangsel', lat: -6.347005, lon: 106.710083, contractor: 'ATP' },
+  { id: 'Jabo 4', nama: 'DSS Tangsel', lat: -6.373874, lon: 106.807865, contractor: 'DSS' },
+  { id: 'Jabo 2', nama: 'Lembah Serayu North East', lat: -6.2185515, lon: 106.888287, contractor: 'Lembah Serayu' },
+  { id: 'Jabo 2', nama: 'Quantum North East', lat: -6.217071, lon: 106.870245, contractor: 'Quantum' },
+  { id: 'Jabo 2', nama: 'Quantum North East', lat: -6.149371, lon: 106.983531, contractor: 'Quantum' },
+  { id: 'Jabo 2', nama: 'DSS North East', lat: -6.212624, lon: 106.948218, contractor: 'DSS' },
+  { id: 'Jabo 2', nama: 'ATP North East', lat: -6.15526, lon: 106.89694, contractor: 'ATP' },
+  { id: 'Jabo 5', nama: 'DSS South', lat: -6.373852, lon: 106.807784, contractor: 'DSS' },
+  { id: 'Jabo 5', nama: 'SHU South', lat: -6.366789, lon: 106.772159, contractor: 'SHU' },
+  { id: 'Jabo 5', nama: 'RPS South', lat: -6.32703, lon: 106.796362, contractor: 'RPS' },
+  { id: 'Jabo 5', nama: 'Quantum South', lat: -6.37594, lon: 106.789936, contractor: 'Quantum' },
+  { id: 'Jabo 5', nama: 'ATP South', lat: -6.264171, lon: 106.793102, contractor: 'ATP' },
+  { id: 'Jabo 1', nama: 'RPS Karawaci', lat: -6.237329, lon: 106.616772, contractor: 'RPS' },
+  { id: 'Jabo 1', nama: 'RPS Serang', lat: -6.129315, lon: 106.150726, contractor: 'RPS' },
+  { id: 'Jabo 1', nama: 'RPS Pasar Kemis', lat: -6.17465, lon: 106.536543, contractor: 'RPS' },
+  { id: 'Jabo 1', nama: 'ATP Tangerang', lat: -6.2651579, lon: 106.6274844, contractor: 'ATP' },
+  { id: 'Jabo 1', nama: 'SHU Tangerang', lat: -6.190365, lon: 106.627743, contractor: 'SHU' },
+  { id: 'Jabo 3', nama: 'ATP West', lat: -6.164282, lon: 106.788714, contractor: 'ATP' },
+  { id: 'Jabo 3', nama: 'Bintang West', lat: -6.206907, lon: 106.731214, contractor: 'Bintang' },
+  { id: 'Jabo 3', nama: 'RPS West', lat: -6.187346, lon: 106.699307, contractor: 'RPS' },
+  { id: 'Jabo 3', nama: 'Cemerlang West', lat: -6.143418, lon: 106.814577, contractor: 'Cemerlang' },
+  { id: 'Jabar 1', nama: 'SHU Bandung', lat: -6.87807894801366, lon: 107.594695987176, contractor: 'SHU' },
+  { id: 'Jabar 1', nama: 'RPS Bandung', lat: -6.9431997, lon: 107.6818148, contractor: 'RPS' },
+  { id: 'Jabar 1', nama: 'Quantum Bandung', lat: -6.94892, lon: 107.66243, contractor: 'Quantum' },
+  { id: 'Jabar 1', nama: 'Quantum Sumedang', lat: -6.8371428, lon: 107.913552, contractor: 'Quantum' },
+  { id: 'Jabar 1', nama: 'ATP Ciamis', lat: -7.355798, lon: 108.5333743, contractor: 'ATP' },
+  { id: 'Jabar 2', nama: 'Quantum Indramayu', lat: -6.328732, lon: 108.31488, contractor: 'Quantum' },
+  { id: 'Jabar 2', nama: 'Quantum Cirebon', lat: -6.751103, lon: 108.542253, contractor: 'Quantum' },
+  { id: 'Jabar 1', nama: 'ATP Kuningan', lat: -6.9743908, lon: 108.530212, contractor: 'ATP' },
+  { id: 'Jabar 2', nama: 'Bintang Purwakarta', lat: -6.4771917, lon: 107.5595866, contractor: 'Bintang' },
+  { id: 'Jabar 2', nama: 'Bintang Subang', lat: -6.5481111, lon: 107.8411389, contractor: 'Bintang' },
+  { id: 'Jabar 2', nama: 'CKT Subang', lat: -6.557863, lon: 107.742766, contractor: 'CKT' },
+  { id: 'Jabar 1', nama: 'Quantum Cianjur', lat: -6.824607, lon: 107.17537, contractor: 'Quantum' },
+  { id: 'Jabar 1', nama: 'ATP Cianjur', lat: -6.800728, lon: 107.090441, contractor: 'ATP' },
+  { id: 'Jabar 1', nama: 'Quantum Sukabumi', lat: -6.880594, lon: 106.795124, contractor: 'Quantum' },
+  { id: 'Jabar 1', nama: 'Bintang Sukabumi', lat: -6.953813, lon: 106.951363, contractor: 'Bintang' },
+  { id: 'Jateng 1', nama: 'RPS Semarang', lat: -7.017381, lon: 110.431929, contractor: 'RPS' },
+  { id: 'Jateng 1', nama: 'Bintang Semarang', lat: -7.000508, lon: 110.482991, contractor: 'Bintang' },
+  { id: 'Jateng 1', nama: 'Quantum Semarang', lat: -7.0210654, lon: 110.4567346, contractor: 'Quantum' },
+  { id: 'Jateng 1', nama: 'CKT Semarang', lat: -7.039171, lon: 110.458856, contractor: 'CKT' },
+  { id: 'Jateng 1', nama: 'SHU Semarang', lat: -7.0070394, lon: 110.4486407, contractor: 'SHU' },
+  { id: 'Jateng 2', nama: 'CKT Solo', lat: -7.5645337, lon: 110.7391308, contractor: 'CKT' },
+  { id: 'Jateng 2', nama: 'Quantum Solo', lat: -7.5235477, lon: 110.7646463, contractor: 'Quantum' },
+  { id: 'Jateng 2', nama: 'RPS Solo', lat: -7.597914, lon: 110.882707, contractor: 'RPS' },
+  { id: 'Jateng 1', nama: 'ATP Tegal', lat: -6.856849, lon: 109.126389, contractor: 'ATP' },
+  { id: 'Jateng 1', nama: 'Lembah Serayu Tegal', lat: -6.9337, lon: 109.185257, contractor: 'Lembah Serayu' },
+  { id: 'Jateng 2', nama: 'ATP Yogyakarta', lat: -7.719502, lon: 110.352064, contractor: 'ATP' },
+  { id: 'Jateng 2', nama: 'CKT Yogyakarta', lat: -7.813284, lon: 110.40476, contractor: 'CKT' },
+  { id: 'Jateng 2', nama: 'RPS Yogyakarta', lat: -7.726116, lon: 110.363753, contractor: 'RPS' },
+  { id: 'Jateng 2', nama: 'Quantum Yogyakarta', lat: -7.7347209, lon: 110.4702615, contractor: 'Quantum' },
+  { id: 'Jateng 2', nama: 'CKT Bantul', lat: -7.8133254, lon: 110.4047767, contractor: 'CKT' },
+  { id: 'Jateng 2', nama: 'Quantum Bantul', lat: -7.7347209, lon: 110.4702615, contractor: 'Quantum' },
+  { id: 'Jateng 2', nama: 'ATP Banyumas', lat: -7.393, lon: 109.3218, contractor: 'ATP' },
+  { id: 'Jateng 1', nama: 'SHU Demak', lat: -6.89345, lon: 110.61945, contractor: 'SHU' },
+  { id: 'Jateng 2', nama: 'Quantum Magelang', lat: -7.5404677, lon: 110.232949, contractor: 'Quantum' },
+  { id: 'Jateng 2', nama: 'RPS Magelang', lat: -7.531931, lon: 110.234149, contractor: 'RPS' },
+  { id: 'Jateng 1', nama: 'Bintang Pati', lat: -6.71024, lon: 111.139812, contractor: 'Bintang' },
+  { id: 'Jateng 1', nama: 'Lembah Serayu Pekalongan', lat: -6.8946636, lon: 109.6563847, contractor: 'Lembah Serayu' },
+  { id: 'Jateng 1', nama: 'ATP Pemalang', lat: -6.900134, lon: 109.539771, contractor: 'ATP' },
+  { id: 'Jateng 1', nama: 'Lembah Serayu Pemalang', lat: -6.8983252, lon: 109.4540275, contractor: 'Lembah Serayu' },
+  { id: 'Jateng 2', nama: 'ATP Purbalingga', lat: -7.393, lon: 109.3218, contractor: 'ATP' },
+  { id: 'Jatim 2', nama: 'Quantum Bali', lat: -8.633091, lon: 115.22073, contractor: 'Quantum' },
+  { id: 'Jatim 2', nama: 'ATP Bali', lat: -8.628808, lon: 115.185139, contractor: 'ATP' },
+  { id: 'Jatim 2', nama: 'Quantum Kediri', lat: -7.818333, lon: 112.0639, contractor: 'Quantum' },
+  { id: 'Jatim 2', nama: 'CKT Madiun', lat: -7.66636, lon: 111.523753, contractor: 'CKT' },
+  { id: 'Jatim 2', nama: 'Bintang Malang', lat: -7.950467, lon: 112.66943, contractor: 'Bintang' },
+  { id: 'Jatim 2', nama: 'Quantum Malang', lat: -7.933884, lon: 112.652264, contractor: 'Quantum' },
+  { id: 'Jatim 1', nama: 'Andika Surabaya', lat: -7.278115, lon: 112.746329, contractor: 'Andika' },
+  { id: 'Jatim 1', nama: 'Bintang Surabaya', lat: -7.364211, lon: 112.755084, contractor: 'Bintang' },
+  { id: 'Jatim 1', nama: 'Quantum Surabaya', lat: -7.310564, lon: 112.76892, contractor: 'Quantum' },
+  { id: 'Jatim 1', nama: 'SHU Surabaya', lat: -7.279931, lon: 112.716265, contractor: 'SHU' },
+  { id: 'Jatim 1', nama: 'RPS Surabaya', lat: -7.326317, lon: 112.793417, contractor: 'RPS' },
+  { id: 'Jatim 1', nama: 'BLS Surabaya', lat: -7.45877, lon: 112.705232, contractor: 'BLS' },
+  { id: 'Jatim 1', nama: 'ATP Surabaya', lat: -7.339107, lon: 112.803732, contractor: 'ATP' },
+  { id: 'Jatim 2', nama: 'RPS Bojonegoro', lat: -7.147197, lon: 111.908935, contractor: 'RPS' },
+  { id: 'Jatim 1', nama: 'Bintang Gresik', lat: -7.219603, lon: 112.582245, contractor: 'Bintang' },
+  { id: 'Jatim 1', nama: 'BLS Mojokerto', lat: -7.500114, lon: 112.471902, contractor: 'BLS' },
+  { id: 'Jatim 2', nama: 'ATP Ponorogo', lat: -7.8511206, lon: 111.49539, contractor: 'ATP' },
+  { id: 'Jatim 2', nama: 'CKT Probolinggo', lat: -7.717196, lon: 113.518971, contractor: 'CKT' },
+  { id: 'Jatim 2', nama: 'Quantum Tulungagung', lat: -8.067825, lon: 111.93939, contractor: 'Quantum' },
+  { id: 'Jatim 2', nama: 'BLS Tulungagung', lat: -8.097129, lon: 111.900498, contractor: 'BLS' },
+  { id: 'Sumatra 1', nama: 'Bintang Batam', lat: 1.109339, lon: 104.043634, contractor: 'Bintang' },
+  { id: 'Sumatra 1', nama: 'Quantum Batam', lat: 1.117973, lon: 103.968558, contractor: 'Quantum' },
+  { id: 'Sumatra 1', nama: 'Bintang Medan', lat: 3.605192, lon: 98.646336, contractor: 'Bintang' },
+  { id: 'Sumatra 1', nama: 'Quantum Medan', lat: 3.585405, lon: 98.633448, contractor: 'Quantum' }
+
+  ];
+
+  data.forEach(loc => {
+    const regionColor = regionColors[loc.id] || '#000';
+    const marker = L.circleMarker([loc.lat, loc.lon], {
+      radius: 6,
+      fillColor: regionColor,
+      color: '#000',
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.8
+    }).addTo(map);
+
+    const metrics = metricsByRegion[loc.id];
+    const metricsHtml = metrics
+      ? `
+        <b>Region:</b> ${loc.id}<br/>
+        <b>Homepass:</b> ${metrics.homepass}<br/>
+        <b>Customer Active:</b> ${metrics.customer}<br/>
+        <b>% Active:</b> ${metrics.percentage}%<br/>
+        <b>Work Order/Month:</b> ${metrics.workOrder}
+      `
+      : `<b>Region:</b> ${loc.id}<br/>No metrics available`;
+
+    marker.bindPopup(`
+      <div>
+        <b>${loc.nama}</b><br/>
+        <b>Contractor:</b> ${loc.contractor}<br/><br/>
+        ${metricsHtml}
+      </div>
+    `);
+  });
+
+  const legend = L.control({ position: 'bottomright' });
+
+  legend.onAdd = function (map) {
+    const div = L.DomUtil.create('div', 'legend');
+    let html = '<b>Region Colors</b><br>';
+    for (let region in regionColors) {
+      html += `<i style="background:${regionColors[region]}"></i>${region}<br>`;
+    }
+    div.innerHTML = html;
+    return div;
+  };
+
+  legend.addTo(map);
+</script>
+
+</body>
+</html>
+
+
+</script>
+
+</body>
+</html>
